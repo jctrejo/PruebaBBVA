@@ -3,9 +3,9 @@
 API utilizada:
 https://pokeapi.co/
 
-Estructura: 
+# Estructura: 
 * MVVM
-* Herramientas: 
+# Herramientas: 
 * Compose,
 * flow, 
 * navigation, 
