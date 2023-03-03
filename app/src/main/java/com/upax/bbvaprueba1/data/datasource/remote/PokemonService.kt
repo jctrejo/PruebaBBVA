@@ -8,7 +8,7 @@ import retrofit2.http.Headers
 interface PokemonService {
 
     @Headers("Content-Type: application/json")
-    @GET("/pokemon?limit=50")
+    @GET("/api/v2/pokemon?limit=50")
     @Api(ApiType.URL_SECUNDARY)
     suspend fun getPokemon(): DataResponse
 }

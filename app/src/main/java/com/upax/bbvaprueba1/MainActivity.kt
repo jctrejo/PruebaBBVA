@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.*
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                 .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         navController = navHostFragment.navController
         binding.navigateBottom.setupWithNavController(navController)
-
 
 /*
         binding.fab.setOnClickListener { view ->
