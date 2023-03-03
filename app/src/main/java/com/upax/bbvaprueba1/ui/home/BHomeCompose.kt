@@ -7,6 +7,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -32,26 +34,10 @@ fun AllPokemons(listPokemon: List<PokemonsResponse>) {
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
         ) {
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(vertical = 25.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        "Pokemon",
-                        style = MaterialTheme.typography.h3
-                    )
-                }
-            }
             items(listPokemon.size) { pokemon ->
-                PlantCard(
+                PokemonCard(
                     listPokemon[pokemon].name,
-                    listPokemon[pokemon].name,
-                    listPokemon[pokemon].url
+                    pokemon
                 )
             }
         }
@@ -60,33 +46,73 @@ fun AllPokemons(listPokemon: List<PokemonsResponse>) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun PlantCard(name: String, description: String, imagePokemon: String) {
-    Card(
-        modifier = Modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        shape = MaterialTheme.shapes.medium,
-        elevation = 5.dp,
-        backgroundColor = MaterialTheme.colors.surface
+fun PokemonCard(name: String, pokemonNumber: Int) {
+    val pokemonImageUrl =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonNumber.png"
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        Card(
+            modifier = Modifier
+                .padding(top = 10.dp, bottom = 10.dp)
+                .width(120.dp)
+                .height(200.dp),
+            shape = MaterialTheme.shapes.medium,
+            elevation = 3.dp,
+            backgroundColor = MaterialTheme.colors.primary
         ) {
             GlideImage(
-                model = imagePokemon,
+                model = pokemonImageUrl,
                 contentDescription = "",
                 modifier = Modifier
+                    .height(150.dp)
+                    .width(150.dp)
                     .padding(8.dp)
             )
+        }
 
-            Column(Modifier.padding(8.dp)) {
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.h4,
-                    color = MaterialTheme.colors.onSurface,
-                )
+        Card(
+            modifier = Modifier
+                .padding(start = 0.dp, end = 20.dp)
+                .fillMaxWidth(),
+            shape = MaterialTheme.shapes.medium,
+            elevation = 3.dp,
+            backgroundColor = MaterialTheme.colors.surface
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(Modifier.padding(25.dp)) {
+                    PokemonTextView(name, MaterialTheme.typography.h6, 0)
+                    PokemonTextView(name, MaterialTheme.typography.body1, 5)
+                    PokemonTextView(name, MaterialTheme.typography.body1, 5)
+                }
             }
         }
     }
+}
+
+@Composable
+fun PokemonTextView(text: String, style: TextStyle, top: Int) {
+    Text(
+        text = text,
+        style = style,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(top = top.dp)
+    )
+}
+
+@Preview
+@Composable
+fun PreviewGreeting() {
+    val pokemonImageUrl =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+
+    val list = ArrayList<PokemonsResponse>()
+    list.add(PokemonsResponse("pokemon 1", pokemonImageUrl))
+    list.add(PokemonsResponse("pokemon 2", pokemonImageUrl))
+    list.add(PokemonsResponse("pokemon 3", pokemonImageUrl))
+
+    SetupCompose(list)
 }
