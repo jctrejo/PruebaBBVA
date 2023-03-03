@@ -62,7 +62,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAffinityService(
+    fun providePokemonService(
         retrofit: Retrofit
     ): PokemonService {
         return retrofit.create(PokemonService::class.java)

@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.upax.bbvaprueba1.R
 import com.upax.bbvaprueba1.common.PokemonUiState
 import com.upax.bbvaprueba1.data.datasource.response.PokemonsResponse
 import com.upax.bbvaprueba1.databinding.FragmentBhomeBinding
@@ -40,7 +39,7 @@ class BHomeFragment : Fragment() {
     private fun init() {
         binding.loading.showLoader()
         initUiState()
-        getAffinity()
+        getPokemon()
     }
 
     private fun setupCompose(results: ArrayList<PokemonsResponse>) {
@@ -54,7 +53,11 @@ class BHomeFragment : Fragment() {
                         option ->
                         when (option) {
                             PokemonOption.OnClick -> {
-                                findNavController().navigate(R.id.action_HomeFragment_to_DetailFragment)
+                                findNavController().navigate(
+                                    BHomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                                        6
+                                    )
+                                )
                             }
                             else -> {}
                         }
@@ -64,8 +67,9 @@ class BHomeFragment : Fragment() {
         }
     }
 
-    private fun getAffinity() {
+    private fun getPokemon() {
         viewModel.getPokemon()
+        val pokemonLocal = viewModel.getPokemonLocal()
     }
 
     private fun initUiState() {

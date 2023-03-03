@@ -31,7 +31,7 @@ class BHomeViewModel @Inject constructor(
     val pokemon = repositoryLocal.getPokemons()
 
     fun getPokemon() = viewModelScope.launch {
-        repository.fetchAffinity().collect { result ->
+        repository.fetchPokemon().collect { result ->
             when (result) {
                 is PokemonResource.Loading -> {
                     _uiState.value = PokemonUiState.Loading()
@@ -45,6 +45,10 @@ class BHomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getPokemonLocal(): List<PokemonEntity> {
+        return pokemon.value ?: emptyList()
     }
 
     private fun setupSavePokemon(pokemons: ArrayList<PokemonsResponse>) {
