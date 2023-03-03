@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,13 +21,13 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.upax.bbvaprueba1.data.datasource.response.PokemonsResponse
 
 @Composable
-fun SetupCompose(listPokemon: List<PokemonsResponse>) {
-    AllPokemons(listPokemon)
+fun SetupCompose(listPokemon: List<PokemonsResponse>, listener: (PokemonOption) -> Unit) {
+    AllPokemons(listPokemon, listener)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AllPokemons(listPokemon: List<PokemonsResponse>) {
+fun AllPokemons(listPokemon: List<PokemonsResponse>, listener: (PokemonOption) -> Unit) {
     Scaffold {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
@@ -39,16 +36,17 @@ fun AllPokemons(listPokemon: List<PokemonsResponse>) {
             items(listPokemon.size) { pokemon ->
                 PokemonCard(
                     listPokemon[pokemon].name,
-                    pokemon
+                    pokemon,
+                    listener
                 )
             }
         }
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun PokemonCard(name: String, pokemonNumber: Int) {
+fun PokemonCard(name: String, pokemonNumber: Int, listener: (PokemonOption) -> Unit) {
     val pokemonImageUrl =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonNumber.png"
 
@@ -80,10 +78,13 @@ fun PokemonCard(name: String, pokemonNumber: Int) {
                 .fillMaxWidth(),
             shape = MaterialTheme.shapes.medium,
             elevation = 3.dp,
-            backgroundColor = MaterialTheme.colors.surface
+            backgroundColor = MaterialTheme.colors.surface,
+            onClick = {
+                listener(PokemonOption.OnClick)
+            }
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(Modifier.padding(25.dp)) {
                     PokemonTextView(name, MaterialTheme.typography.h6, 0)
@@ -105,6 +106,10 @@ fun PokemonTextView(text: String, style: TextStyle, top: Int) {
     )
 }
 
+sealed interface PokemonOption {
+    object OnClick : PokemonOption
+}
+
 @Preview
 @Composable
 fun PreviewGreeting() {
@@ -116,5 +121,5 @@ fun PreviewGreeting() {
     list.add(PokemonsResponse("pokemon 2", pokemonImageUrl))
     list.add(PokemonsResponse("pokemon 3", pokemonImageUrl))
 
-    SetupCompose(list)
+    //SetupCompose(list)
 }

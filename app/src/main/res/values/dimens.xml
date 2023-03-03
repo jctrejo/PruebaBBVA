@@ -10,6 +10,8 @@
 
     <dimen name="height_0">0dp</dimen>
     <dimen name="height_30">30dp</dimen>
+    <dimen name="height_220">220dp</dimen>
 
+    <dimen name="size_font_16">16sp</dimen>
     <dimen name="size_font_24">24sp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.upax.bbvaprueba1.data.local
+package com.upax.bbvaprueba1.data.local.preferences
 
 interface Preferences {
 

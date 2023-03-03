@@ -2,6 +2,7 @@ package com.upax.bbvaprueba1.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.upax.bbvaprueba1.data.local.preferences.Preferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 class PreferencesImpl(private val prefs: SharedPreferences) : Preferences {

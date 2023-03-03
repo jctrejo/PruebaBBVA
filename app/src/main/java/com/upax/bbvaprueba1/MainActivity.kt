@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.*
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.upax.bbvaprueba1.databinding.ActivityMainBinding
 import com.upax.bbvaprueba1.ui.home.BHomeFragment
-import com.upax.bbvaprueba1.ui.SecondFragment
+import com.upax.bbvaprueba1.ui.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 when (fragment) {
                     is BHomeFragment -> {  }
-                    is SecondFragment -> { }
+                    is DetailFragment -> { }
                 }
             }
         }, true)

@@ -1,19 +1,22 @@
 package com.upax.bbvaprueba1.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.upax.bbvaprueba1.R
 import com.upax.bbvaprueba1.common.PokemonUiState
 import com.upax.bbvaprueba1.data.datasource.response.PokemonsResponse
 import com.upax.bbvaprueba1.databinding.FragmentBhomeBinding
+import com.upax.bbvaprueba1.extension.hideLoader
+import com.upax.bbvaprueba1.extension.showLoader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,6 +38,7 @@ class BHomeFragment : Fragment() {
     }
 
     private fun init() {
+        binding.loading.showLoader()
         initUiState()
         getAffinity()
     }
@@ -45,8 +49,16 @@ class BHomeFragment : Fragment() {
                 ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
             )
             setContent {
-                MaterialTheme() {
-                    SetupCompose(results.toList())
+                MaterialTheme {
+                    SetupCompose(results.toList()) {
+                        option ->
+                        when (option) {
+                            PokemonOption.OnClick -> {
+                                findNavController().navigate(R.id.action_HomeFragment_to_DetailFragment)
+                            }
+                            else -> {}
+                        }
+                    }
                 }
             }
         }
@@ -73,7 +85,7 @@ class BHomeFragment : Fragment() {
                     }
                     else -> { }
                 }
-                //loader.dismiss()
+                binding.loading.hideLoader()
             }
         }
     }
