@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <string name="title">Pokemones</string>
+
 </resources>

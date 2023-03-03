@@ -1,9 +1,18 @@
 package com.upax.bbvaprueba1.ui.home
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,14 +31,7 @@ fun SetupCompose(listPokemon: List<PokemonsResponse>) {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AllPokemons(listPokemon: List<PokemonsResponse>) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.primary,
-                title = { "BBVA" }
-            )
-        }
-    ) {
+    Scaffold {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
@@ -86,7 +88,7 @@ fun PokemonCard(name: String, pokemonNumber: Int) {
                 Column(Modifier.padding(25.dp)) {
                     PokemonTextView(name, MaterialTheme.typography.h6, 0)
                     PokemonTextView(name, MaterialTheme.typography.body1, 5)
-                    PokemonTextView(name, MaterialTheme.typography.body1, 5)
+                    PokemonTextView(name, MaterialTheme.typography.body1, 10)
                 }
             }
         }

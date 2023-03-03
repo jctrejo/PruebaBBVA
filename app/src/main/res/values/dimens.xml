@@ -1,3 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="margin_padding_0">0dp</dimen>
+    <dimen name="margin_padding_8">8dp</dimen>
+    <dimen name="margin_padding_24">24dp</dimen>
+
+    <dimen name="width_0">0dp</dimen>
+    <dimen name="width_30">30dp</dimen>
+
+    <dimen name="height_0">0dp</dimen>
+    <dimen name="height_30">30dp</dimen>
+
+    <dimen name="size_font_24">24sp</dimen>
 </resources>

@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.upax.bbvaprueba1.common.PokemonUiState
 import com.upax.bbvaprueba1.data.datasource.response.PokemonsResponse
 import com.upax.bbvaprueba1.databinding.FragmentBhomeBinding
@@ -39,12 +41,11 @@ class BHomeFragment : Fragment() {
 
     private fun setupCompose(results: ArrayList<PokemonsResponse>) {
         binding.composeView.apply {
-            // Dispose the Composition when viewLifecycleOwner is destroyed
             setViewCompositionStrategy(
                 ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
             )
             setContent {
-                MaterialTheme {
+                MaterialTheme() {
                     SetupCompose(results.toList())
                 }
             }
@@ -61,19 +62,18 @@ class BHomeFragment : Fragment() {
                 when (state) {
                     is PokemonUiState.Loading -> {
                         println("Loading...")
-                        //loader.show()
                     }
                     is PokemonUiState.Success -> {
                         println("Success... ${state.data.results}")
                         setupCompose(state.data.results)
-                        //loader.dismiss()
                     }
                     is PokemonUiState.Error -> {
-                        println("Error...")
-                        //loader.dismiss()
+                        Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show()
                     }
                     else -> { }
                 }
+                //loader.dismiss()
             }
         }
     }
