@@ -14,10 +14,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.upax.bbvaprueba1.databinding.ActivityMainBinding
-import com.upax.bbvaprueba1.ui.BHomeFragment
+import com.upax.bbvaprueba1.ui.home.BHomeFragment
 import com.upax.bbvaprueba1.ui.SecondFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
